@@ -10,7 +10,7 @@ class Ps_Weather_Forecast extends Module
     {
         $this->name = 'ps_weather_forecast';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.0';
+        $this->version = '1.0';
         $this->author = 'El Mahdi Ouqas';
         $this->bootstrap = true;
         parent::__construct();
@@ -57,7 +57,7 @@ class Ps_Weather_Forecast extends Module
                     'name' => 'PS_WEATHER_API_KEY',
                     'required' => true,
                 ]],
-                'submit' => ['title' => $this->l('Save')],
+                'submit' => ['title' => $this->l('Sauvgarder')],
             ]
         ]]);
     }

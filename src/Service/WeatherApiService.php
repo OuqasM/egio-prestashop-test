@@ -37,14 +37,19 @@ class WeatherApiService
 
     private function makeRequest($endpoint, $city)
     {
+        $inseeCode = $this->getInseeCode($city);
+        if (!$inseeCode) {
+            return ['error' => "Ville not found."];
+        }
+    
         try {
             $response = $this->client->request('GET', $endpoint, [
                 'query' => [
                     'token' => $this->apiKey,
-                    'insee' => $this->getInseeCode($city)
+                    'insee' => $inseeCode
                 ]
             ]);
-
+    
             return json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
             $errorMessage = "";
@@ -79,6 +84,22 @@ class WeatherApiService
 
     private function getInseeCode($city)
     {
-        // todo: mustfind a solution for this  
-    }
+        try {
+            $response = $this->client->request('GET', 'location/cities', [
+                'query' => [
+                    'token' => $this->apiKey,
+                    'search' => $city
+                ]
+            ]);
+    
+            $data = json_decode($response->getBody()->getContents(), true);
+            if (!empty($data['cities']) && isset($data['cities'][0]['insee'])) {
+                return $data['cities'][0]['insee'];
+            }
+            
+            throw new \Exception("City not found");
+        } catch (\Exception $e) {
+            return null;
+        }
+    }    
 }
