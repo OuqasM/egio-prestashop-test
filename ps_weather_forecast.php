@@ -22,7 +22,7 @@ class Ps_Weather_Forecast extends Module
     public function install()
     {
         return parent::install() && 
-               $this->registerHook('displayHeader') && 
+               $this->registerHook('displayNav2') && 
                Configuration::updateValue('PS_WEATHER_API_KEY', ''); 
     }
 
@@ -60,5 +60,14 @@ class Ps_Weather_Forecast extends Module
                 'submit' => ['title' => $this->l('Sauvgarder')],
             ]
         ]]);
+    }
+
+    public function hookDisplayNav2($params)
+    {
+        $this->context->smarty->assign(array(
+            'weather_link' => $this->context->link->getModuleLink('ps_weather_forecast', 'weather')
+        ));
+
+        return $this->display(__FILE__, 'views/templates/hook/navbar.tpl');
     }
 }

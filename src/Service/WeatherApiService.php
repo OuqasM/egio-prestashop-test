@@ -17,7 +17,7 @@ class WeatherApiService
 
     public function getCurrentWeather($city)
     {
-        return $this->makeRequest('forecast/daily', $city);
+        return $this->makeRequest('forecast/daily/0', $city);
     }
 
     public function getForecastByDay($city)
@@ -39,7 +39,7 @@ class WeatherApiService
     {
         $inseeCode = $this->getInseeCode($city);
         if (!$inseeCode) {
-            return ['error' => "Ville not found."];
+            return ['error' => "City not found."];
         }
     
         try {
@@ -56,25 +56,25 @@ class WeatherApiService
 
             switch ($e->getCode()) {
                 case 400:
-                    $errorMessage = "Il manque un paramètre ou la valeur est incorrecte";
+                    $errorMessage = "Internal server error, please try later"; // trying to remove technical words from the reposnese message
                     break;
                 case 401:
-                    $errorMessage = "Vous n'êtes pas authentifié(e)";
+                    $errorMessage = "Internal server error, please try later";
                     break;
                 case 403:
-                    $errorMessage = "Vous n'avez pas accès à cette page";
+                    $errorMessage = "Internal server error, please try later";
                     break;
                 case 404:
-                    $errorMessage = "La page demandée n'existe pas";
+                    $errorMessage = "Internal server error, please try later";
                     break;
                 case 500:
-                    $errorMessage = "Une erreur est survenue, merci de réessayer plus tard";
+                    $errorMessage = "An error occurred, please try again later";
                     break;
                 case 503:
-                    $errorMessage = "L'API est momentanément indisponible, merci de réessayer dans quelques minutes";
+                    $errorMessage = "The API is currently unavailable, please try again in a few minutes";
                     break;
                 default:
-                    $errorMessage = "Impossible de récupérer les données météorologiques.";
+                    $errorMessage = "Unable to retrieve weather data.";
                     break;
             }
 
