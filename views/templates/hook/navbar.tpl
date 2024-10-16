@@ -1,5 +1,7 @@
-<li class="nav-item">
+<div class="blockcart cart-preview inactive">
+    <div class="header">
     <a href="{$weather_link}" class="nav-link" title="Weather Forecast">
-        Weather Forecast
-    </a>
-</li>
+            Weather Forecast
+        </a>
+          </div>
+  </div>

@@ -37,12 +37,13 @@ class WeatherApiService
 
     private function makeRequest($endpoint, $city)
     {
-        $inseeCode = $this->getInseeCode($city);
-        if (!$inseeCode) {
-            return ['error' => "City not found."];
-        }
-    
         try {
+
+            $inseeCode = $this->getInseeCode($city);
+            if (!$inseeCode) {
+                return ['error' => "City not foundss."];
+            }
+    
             $response = $this->client->request('GET', $endpoint, [
                 'query' => [
                     'token' => $this->apiKey,
@@ -59,7 +60,7 @@ class WeatherApiService
                     $errorMessage = "Internal server error, please try later"; // trying to remove technical words from the reposnese message
                     break;
                 case 401:
-                    $errorMessage = "Internal server error, please try later";
+                    $errorMessage = "Internal server error, please try later"; // related to token invalid or not sent to the api 
                     break;
                 case 403:
                     $errorMessage = "Internal server error, please try later";
@@ -84,22 +85,19 @@ class WeatherApiService
 
     private function getInseeCode($city)
     {
-        try {
-            $response = $this->client->request('GET', 'location/cities', [
-                'query' => [
-                    'token' => $this->apiKey,
-                    'search' => $city
-                ]
-            ]);
-    
-            $data = json_decode($response->getBody()->getContents(), true);
-            if (!empty($data['cities']) && isset($data['cities'][0]['insee'])) {
-                return $data['cities'][0]['insee'];
-            }
-            
-            throw new \Exception("City not found");
-        } catch (\Exception $e) {
-            return null;
+        $response = $this->client->request('GET', 'location/cities', [
+            'query' => [
+                'token' => $this->apiKey,
+                'search' => $city
+            ]
+        ]);
+
+
+        $data = json_decode($response->getBody()->getContents(), true);
+        if (!empty($data['cities']) && isset($data['cities'][0]['insee'])) {
+            return $data['cities'][0]['insee'];
         }
+        
+        return null;
     }    
 }
