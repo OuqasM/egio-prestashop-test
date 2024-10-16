@@ -22,13 +22,15 @@ class Ps_Weather_Forecast extends Module
     public function install()
     {
         return parent::install() && 
-               $this->registerHook('displayNav2') && 
-               Configuration::updateValue('PS_WEATHER_API_KEY', ''); 
+                $this->registerHook('displayNav2') && 
+                Configuration::updateValue('PS_WEATHER_API_KEY', ''); 
     }
 
     public function uninstall()
     {
-        return parent::uninstall() && Configuration::deleteByName('PS_WEATHER_API_KEY');
+        return parent::uninstall() &&
+                Configuration::deleteByName('PS_WEATHER_API_KEY') &&
+                $this->unregisterHook('displayNav2');
     }
 
     public function getContent()

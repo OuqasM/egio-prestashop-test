@@ -3,7 +3,8 @@ Allows your Prestashop store to display the weather at your location.
 # Installation
 
 1. Download this repository.
-2. Extract the `egio-prestashop-test` folder into the `prestashop/modules` directory.
+2. Extract the `egio-prestashop-test-main` folder into the `prestashop/modules` directory.
+3. Rename the folder to `ps_weather_forecast`
 3. Access your Prestashop admin panel and navigate to Modules Manager.
 4. Search for "Weather Forecast Module" and you will find a module by Egio Digital. Click install.
 

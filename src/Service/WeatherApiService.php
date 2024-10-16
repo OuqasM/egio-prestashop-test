@@ -38,44 +38,40 @@ class WeatherApiService
     private function makeRequest($endpoint, $city)
     {
         try {
-
             $inseeCode = $this->getInseeCode($city);
             if (!$inseeCode) {
-                return ['error' => "City not foundss."];
+                return ['error' => "City not found."];
             }
-    
+
             $response = $this->client->request('GET', $endpoint, [
                 'query' => [
                     'token' => $this->apiKey,
                     'insee' => $inseeCode
                 ]
             ]);
-    
+
             return json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
-            $errorMessage = "";
+            $errorMessage = "Internal server error, please try later";
 
-            switch ($e->getCode()) {
+            switch ($e->getCode()) { // those messages must be non technical
                 case 400:
-                    $errorMessage = "Internal server error, please try later"; // trying to remove technical words from the reposnese message
+                    $errorMessage = "City not found, please check your parameters.";
                     break;
                 case 401:
-                    $errorMessage = "Internal server error, please try later"; // related to token invalid or not sent to the api 
+                    $errorMessage = "Authentication failed, please check your API key.";
                     break;
                 case 403:
-                    $errorMessage = "Internal server error, please try later";
+                    $errorMessage = "Authentication failed, please check your API key.";
                     break;
                 case 404:
-                    $errorMessage = "Internal server error, please try later";
+                    $errorMessage = "Page not found, please contact us.";
                     break;
                 case 500:
-                    $errorMessage = "An error occurred, please try again later";
+                    $errorMessage = "Internal server error, please contact us.";
                     break;
                 case 503:
-                    $errorMessage = "The API is currently unavailable, please try again in a few minutes";
-                    break;
-                default:
-                    $errorMessage = "Unable to retrieve weather data.";
+                    $errorMessage = "API is temporarily unavailable, please try again later.";
                     break;
             }
 
@@ -92,12 +88,12 @@ class WeatherApiService
             ]
         ]);
 
-
         $data = json_decode($response->getBody()->getContents(), true);
         if (!empty($data['cities']) && isset($data['cities'][0]['insee'])) {
             return $data['cities'][0]['insee'];
         }
-        
+
         return null;
     }    
 }
+

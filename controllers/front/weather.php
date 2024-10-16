@@ -1,6 +1,6 @@
 <?php
 
-require_once _PS_MODULE_DIR_.'ps_weather_forecast/vendor/autoload.php';
+require_once _PS_MODULE_DIR_ . 'ps_weather_forecast/vendor/autoload.php';
 
 use Egio\Ps_Weather_Forecast\Service\WeatherApiService;
 
@@ -12,8 +12,7 @@ class Ps_Weather_ForecastWeatherModuleFrontController extends ModuleFrontControl
 
         $weatherService = new WeatherApiService();
         $city = Tools::getValue('city', 'Rabat');
-
-        $forecastType = Tools::getValue('forecastType');
+        $forecastType = Tools::getValue('forecastType', '');
 
         if (Tools::isSubmit('submitWeatherForm')) {
             switch ($forecastType) {
