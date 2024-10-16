@@ -1,6 +1,6 @@
 <?php
 
-namespace PsWeatherForecast\Service;
+namespace Egio\Ps_Weather_Forecast\Service;
 
 use GuzzleHttp\Client;
 

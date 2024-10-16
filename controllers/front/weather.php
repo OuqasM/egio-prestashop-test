@@ -1,16 +1,13 @@
 <?php
 
-namespace PsWeatherForecast\Controller\Front;
+require_once _PS_MODULE_DIR_.'ps_weather_forecast/vendor/autoload.php';
 
-use PsWeatherForecast\Service\WeatherApiService;
-use Symfony\Component\HttpFoundation\Request;
-use Tools;
+use Egio\Ps_Weather_Forecast\Service\WeatherApiService;
 
-class WeatherController extends \ModuleFrontController
+class Ps_Weather_ForecastWeatherModuleFrontController extends ModuleFrontController
 {
     public function initContent()
     {
-        dd("salam");
         parent::initContent();
 
         $weatherService = new WeatherApiService();
@@ -22,6 +19,7 @@ class WeatherController extends \ModuleFrontController
             $weatherData = [];
         }
 
+        die($weatherData);
         $this->context->smarty->assign([
             'weather_data' => $weatherData,
             'city' => $city,

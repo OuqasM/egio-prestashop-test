@@ -11,7 +11,7 @@ class Ps_Weather_Forecast extends Module
         $this->name = 'ps_weather_forecast';
         $this->tab = 'front_office_features';
         $this->version = '1.0';
-        $this->author = 'El Mahdi Ouqas';
+        $this->author = 'Egio Digital';
         $this->bootstrap = true;
         parent::__construct();
 

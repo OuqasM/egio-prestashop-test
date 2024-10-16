@@ -1,0 +1,22 @@
+ {
+    "name": "egio-degital/ps_weather_forecast",
+    "description": "Weather Forecast Module",
+    "authors": [
+      {
+        "name": "Egio Digital",
+        "homepage": "https://www.egiodigital.com/"
+      }
+    ],
+    "require": {
+      "php": ">=7.4.0"
+    },
+    "config": {
+      "preferred-install": "dist"
+    },
+    "autoload": {
+      "psr-4": {"Egio\\Ps_Weather_Forecast\\": "src/"}
+    },
+    "type": "prestashop-module",
+    "license": "AFL-3.0",
+    "homepage": "https://www.egiodigital.com/"
+  }
